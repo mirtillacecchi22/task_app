@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-double _perc = 0;
-double _progress = 0;
-int _n = 4;
-int _comp = 0;
+import 'task_item.dart';
 
 void main() {
   runApp(const MainApp());
@@ -17,6 +14,11 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  double _perc = 0;
+  double _progress = 0;
+  final int _n = 4;
+  int _comp = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,40 +67,13 @@ class _MainAppState extends State<MainApp> {
 
   void onSonChange(value) {
     setState(() {
-      if (value)
+      if (value) {
         _comp += 1;
-      else
+      } else {
         _comp -= 1;
-
+      }
       _perc = 100 * _comp / _n;
       _progress = 1 * _perc / 100;
     });
-  }
-}
-
-class TaskItem extends StatefulWidget {
-  final String label;
-  final Function onCheck;
-
-  TaskItem({super.key, required this.label, required this.onCheck});
-
-  @override
-  State<TaskItem> createState() => _TaskItemState();
-}
-
-class _TaskItemState extends State<TaskItem> {
-  bool? _value = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
-            value: _value,
-            onChanged: (newvalue) =>
-                {widget.onCheck(newvalue), _value = newvalue}),
-        Text(widget.label)
-      ],
-    );
   }
 }
