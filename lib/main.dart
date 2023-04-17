@@ -91,6 +91,9 @@ class _MainAppState extends State<MainApp> {
   void aggiungiTask(value) {
     setState(() {
       tasks.add(value);
+      _perc = 100 * _comp / tasks.length;
+      _perc = double.parse((_perc).toStringAsFixed(2));
+      _progress = 1 * _perc / 100;
     });
   }
 }
