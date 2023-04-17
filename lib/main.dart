@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import './task_list.dart';
+import './add_task.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const MaterialApp(
+      home: MainApp())); //soluzione per usare Navigator, da rivedere
 }
 
 class MainApp extends StatefulWidget {
@@ -19,7 +21,7 @@ class _MainAppState extends State<MainApp> {
   int _comp = 0;
 
   //lista dei tasks hardcoded
-  final _tasks = const [
+  List<String> tasks = [
     'Comprare lo zucchero',
     'Colloquio parenti',
     'Revisione macchina',
@@ -53,8 +55,18 @@ class _MainAppState extends State<MainApp> {
               Expanded(
                 child: TasksList(
                   onSonChange: onSonChange,
-                  tasks: _tasks,
+                  tasks: tasks,
                 ),
+              ),
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddItem(addTask: aggiungiTask)),
+                  );
+                },
+                child: const Icon(Icons.add),
               ),
             ],
           ),
@@ -70,9 +82,15 @@ class _MainAppState extends State<MainApp> {
       } else {
         _comp -= 1;
       }
-      _perc = 100 * _comp / _tasks.length;
+      _perc = 100 * _comp / tasks.length;
       _perc = double.parse((_perc).toStringAsFixed(2));
       _progress = 1 * _perc / 100;
+    });
+  }
+
+  void aggiungiTask(value) {
+    setState(() {
+      tasks.add(value);
     });
   }
 }
