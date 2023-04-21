@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AddItem extends StatefulWidget {
-  final Function addTask;
-  const AddItem({super.key, required this.addTask});
+  //final Function addTask;
+
+  const AddItem({super.key});
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -35,12 +36,13 @@ class _AddItemState extends State<AddItem> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  widget.addTask(taskController.text);
-                  Navigator.pop(context);
+                  //Provider.of<TaskModel>(context).add(taskController.text);
+                  //tasks.add(taskController.text);
+                  Navigator.pop(context, taskController.text);
                 },
                 child: const Text('Aggiungi task!'),
               ),
-            )
+            ),
           ]),
     );
   }
